@@ -66,3 +66,5 @@ resource functionApp 'Microsoft.Web/sites@2022-09-01' = {
     }
   }
 }
+
+output functionAppName string = functionAppName
