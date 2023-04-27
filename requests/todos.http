@@ -1,0 +1,20 @@
+@host = http://localhost:7071/api/todos
+@id = d8d2597b-87f6-4bc0-9e7e-259784363aa9
+
+# Create a new todo
+
+POST {{host}}
+Content-Type: application/json
+
+{
+  "task": "Push to GitHub",
+}
+
+### Get all todos
+GET {{host}}
+
+### Get a todo by id
+GET {{host}}/{{id}}
+
+### Complete a todo
+PATCH {{host}}/{{id}}/complete
