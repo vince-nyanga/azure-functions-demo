@@ -25,21 +25,19 @@ jobs:
           parameters: ./infrastructure/function-app.parameters.json
       - name: Set Function App Name
         run: |
-          echo "::set-output name=functionAppName::${{ steps.deploy-infrastructure.outputs.functionAppName }}"
-
-        continue-on-error: true
+          echo "functionAppName=${{ steps.deploy-infrastructure.outputs.functionAppName }}" >> $GITHUB_OUTPUT
 
   publish-function:
     runs-on: ubuntu-latest
     needs: deploy-infrastructure
     env:
-      AZURE_FUNCTIONAPP_NAME: ${{ needs.deploy-infrastructure.outputs.functionAppName }}
+      AZURE_FUNCTIONAPP_NAME: ${{needs.deploy-infrastructure.outputs.functionAppName}}
       AZURE_FUNCTIONAPP_PACKAGE_PATH: "./src/TodoApi/"
       DOTNET_VERSION: "6.0.302"
       PROJECT_PATH: "./src/"
     steps:
       - run: |
-          echo "App name: ${{ needs.deploy-infrastructure.outputs.functionAppName }}"
+          echo "App name: ${{needs.deploy-infrastructure.outputs}}"
       - uses: actions/checkout@main
       - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v1
