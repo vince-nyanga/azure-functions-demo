@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using TodoApi.Entities;
 using TodoApi.Requests;
 using System;
+using TodoApi.Constants;
 
 namespace TodoApi
 {
@@ -17,7 +18,7 @@ namespace TodoApi
         [FunctionName("CreateTodo")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "todos")] HttpRequest req,
-            [Table(Constants.TableName, Connection = "AzureWebJobsStorage")] IAsyncCollector<TodoEntity> todosCollector,
+            [Table(TableStorageConstants.TableName, Connection = "AzureWebJobsStorage")] IAsyncCollector<TodoEntity> todosCollector,
             ILogger log)
         {
             log.LogInformation("Creating a new todo.");
@@ -41,7 +42,7 @@ namespace TodoApi
             {
                 TaskDescription = request.Task,
                 IsComplete = false,
-                PartitionKey = Constants.PartitionKey,
+                PartitionKey = TableStorageConstants.PartitionKey,
                 RowKey = Guid.NewGuid().ToString()
             };
         }

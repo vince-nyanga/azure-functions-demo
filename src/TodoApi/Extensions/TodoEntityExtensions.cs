@@ -7,12 +7,10 @@ namespace TodoApi.Extensions
     {
         public static Todo ToModel(this TodoEntity todoEntity)
         {
-            return new Todo
-            {
-                Id = todoEntity.RowKey,
-                TaskDescription = todoEntity.TaskDescription,
-                IsComplete = todoEntity.IsComplete
-            };
+            return new Todo(
+                Id: todoEntity.RowKey,
+                TaskDescription: todoEntity.TaskDescription,
+                IsComplete: todoEntity.IsComplete);
         }
     }
 }

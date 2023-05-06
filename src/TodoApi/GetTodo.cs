@@ -5,9 +5,9 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using TodoApi.Entities;
 using TodoApi.Extensions;
+using TodoApi.Constants;
 
 namespace TodoApi
 {
@@ -16,7 +16,7 @@ namespace TodoApi
         [FunctionName("GetTodo")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "todos/{id}")] HttpRequest req,
-            [Table(Constants.TableName, Constants.PartitionKey, "{id}", Connection = "AzureWebJobsStorage")] TodoEntity todoEntity,
+            [Table(TableStorageConstants.TableName, TableStorageConstants.PartitionKey, "{id}", Connection = "AzureWebJobsStorage")] TodoEntity todoEntity,
             ILogger log)
         {
             log.LogInformation("Getting todo by id.");
