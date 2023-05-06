@@ -22,6 +22,11 @@ jobs:
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: ./infrastructure/function-app.bicep
           parameters: ./infrastructure/function-app.parameters.json
+      - name: Print Function App Name
+        run: |
+          echo "Function App Name: ${{ steps.deploy-infrastructure.outputs.functionAppName }}"
+        id: deploy-infrastructure
+        continue-on-error: true
 
   publish-function:
     runs-on: ubuntu-latest
@@ -32,8 +37,9 @@ jobs:
       DOTNET_VERSION: "6.0.302"
       PROJECT_PATH: "./src/"
     steps:
+      - run: |
+          echo "App name: ${{ needs.deploy-infrastructure.outputs.functionAppName }}"
       - uses: actions/checkout@main
-
       - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v1
         with:
