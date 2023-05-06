@@ -23,7 +23,7 @@ jobs:
           template: ./infrastructure/function-app.bicep
           parameters: ./infrastructure/function-app.parameters.json
 
-  deploy-function:
+  publish-function:
     runs-on: ubuntu-latest
     needs: deploy-infrastructure
     env:
@@ -32,6 +32,8 @@ jobs:
       DOTNET_VERSION: "6.0.302"
       PROJECT_PATH: "./src/"
     steps:
+      - uses: actions/checkout@main
+
       - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v1
         with:
