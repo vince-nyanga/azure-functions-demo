@@ -16,6 +16,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy Infrastructure
+        id: deploy-infrastructure
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
@@ -25,7 +26,7 @@ jobs:
       - name: Print Function App Name
         run: |
           echo "Function App Name: ${{ steps.deploy-infrastructure.outputs.functionAppName }}"
-        id: deploy-infrastructure
+
         continue-on-error: true
 
   publish-function:
