@@ -23,9 +23,9 @@ jobs:
           resourceGroupName: ${{ secrets.AZURE_RG }}
           template: ./infrastructure/function-app.bicep
           parameters: ./infrastructure/function-app.parameters.json
-      - name: Print Function App Name
+      - name: Set Function App Name
         run: |
-          echo "Function App Name: ${{ steps.deploy-infrastructure.outputs.functionAppName }}"
+          echo "::set-output name=functionAppName::${{ steps.deploy-infrastructure.outputs.functionAppName }}"
 
         continue-on-error: true
 
