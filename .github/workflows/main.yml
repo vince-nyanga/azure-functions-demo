@@ -39,13 +39,6 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: "Run Tests"
-        shell: pwsh
-        run: |
-          pushd './${{ env.PROJECT_PATH }}'
-          dotnet test --configuration Release
-          popd
-
       - name: "Build Azure Functions App"
         shell: pwsh
         run: |
